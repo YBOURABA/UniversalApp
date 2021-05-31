@@ -11,7 +11,17 @@ import SwiftUI
 struct UniversalAppTestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-        }
+             #if os(macOS)
+             NavigationView {
+               Sidebar()
+               ItemsListView(viewModel: ItemsViewModel(category: .top))
+             }
+             #else
+             NavigationView {
+               TabBar()
+                 .navigationTitle("Hacker News")
+             }.navigationViewStyle(StackNavigationViewStyle())
+             #endif
+           }
     }
 }
